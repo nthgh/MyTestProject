@@ -1,0 +1,134 @@
+set nocompatible " 设置vim为不兼容vi模式  
+filetype off " required 
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+"Bundle 'SuperTab'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'git://github.com/scrooloose/nerdtree.git'
+"美化状态栏，可以显示当前的虚拟环境、Git分支、正在编辑的文件等信息
+"Plugin 'Lokaltog/vim-powerline'
+Plugin 'bling/vim-airline'
+Plugin 'Valloric/YouCompleteMe'
+"代码高亮
+Plugin 'justinmk/vim-syntax-extra'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+"安装syntastic插件，每次保存文件时Vim都会检查代码的语法
+"Plugin 'scrooloose/syntastic'
+"Plugin 'kien/rainbow_parentheses.vim' "彩虹括号
+Plugin 'Yggdroot/indentLine' "缩进标线
+Plugin 'majutsushi/tagbar' "代码提纲
+"Plugin 'taglist.vim'
+Plugin 'sickill/vim-monokai'
+Plugin 'tomasr/molokai'
+Plugin 'vim-scripts/khaki.vim'
+"Plugin 'altercation/vim-colors-solarized'
+call vundle#end()
+
+filetype plugin indent on
+
+syntax enable
+
+set number
+set relativenumber
+set autoindent
+set cindent
+set smartindent
+
+set tabstop=4
+set shiftwidth=4
+set mouse=a
+"设置下状态栏
+set laststatus=2
+
+
+"color config
+
+"solarized config
+"set background=light
+"colorscheme solarized
+
+if !has("gui_running")                                          
+	    set t_Co=256                                                
+	endif                                                                     
+	colorscheme khaki
+
+"colorschem molokai
+"set t_Co=256
+"set background=dark
+
+"colorschem monokai
+
+" NERDTree config 文件管理器
+"默认开启nerdtree
+"autocmd vimenter * NERDTree
+"nnoremap <slient> <F3> :NERDTree<CR>
+map <F3> :NERDTreeToggle<CR>
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
+let NERDTreeWinPos='left'
+let NERDTreeWinSize=17
+let NERDTree_Exit_OnlyWindow=1
+
+
+"YCM config
+let g:ycm_confirm_extra_conf=0 "打开vim时不再询问是否加载ycm_extra_conf.py配置"
+let g:ycm_auto_trigger = 1   "turn on"
+"let g:ycm_auto_trigger = 0   "turn off"
+let g:ycm_min_num_of_chars_for_completion = 2  "开始补全的字符数"
+let g:ycm_python_binary_path = 'python'  "jedi模块所在python解释器路径"
+let g:ycm_seed_identifiers_with_syntax = 1  "开启使用语言的一些关键字查询"
+let g:ycm_autoclose_preview_window_after_completion=1 "补全后自动关闭预览窗口"
+"nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR> "代码跳转
+let g:ycm_show_diagnostics_ui = 0 "屏蔽 YCM 的诊断信息
+
+
+"taglist config
+"let Tlist_Ctags_Cmd='ctags'
+"let Tlist_Show_One_File=1               "不同时显示多个文件的tag，只显示当前文件的
+"let Tlist_WinWidt =28                   "设置taglist的宽度
+"let Tlist_Exit_OnlyWindow=1             "如果taglist窗口是最后一个窗口，则退出vim
+"let Tlist_Use_Right_Window=1           "在右侧窗口中显示taglist窗口
+"let Tlist_Use_Left_Windo =1             "在左侧窗口中显示taglist窗口
+
+
+"tagbar config
+"nmap <Leader>tb :TagbarToggle<CR>      "快捷键设置
+let g:tagbar_ctags_bin='ctags'          "ctags程序的路径
+let g:tagbar_width=30                   "窗口宽度的设置
+map <F4> :Tagbar<CR>
+"autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()  "如果是c语言的程序的话，tagbar自动开启
+
+
+"缩进标线配置
+let g:indentLine_noConcealCursor = 1
+let g:indentLine_color_term = 0
+let g:indentLine_char = '|'
+
+
+"彩虹括号配置
+"let g:rbpt_colorpairs = [
+"    \ ['brown', 'RoyalBlue3'],
+"    \ ['Darkblue', 'SeaGreen3'],
+"    \ ['darkgray', 'DarkOrchid3'],
+"    \ ['darkgreen', 'firebrick3'],
+"    \ ['darkcyan', 'RoyalBlue3'],
+"    \ ['darkred', 'SeaGreen3'],
+"    \ ['darkmagenta', 'DarkOrchid3'],
+"    \ ['brown', 'firebrick3'],
+"    \ ['gray', 'RoyalBlue3'],
+"    \ ['black', 'SeaGreen3'],
+"    \ ['darkmagenta', 'DarkOrchid3'],
+"    \ ['Darkblue', 'firebrick3'],
+"    \ ['darkgreen', 'RoyalBlue3'],
+"    \ ['darkcyan', 'SeaGreen3'],
+"    \ ['darkred', 'DarkOrchid3'],
+"    \ ['red', 'firebrick3'],
+"    \ ]
+"let g:rbpt_max = 8
+"let g:rbpt_loadcmd_toggle = 0
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
+"au Syntax * RainbowParenthesesLoadChevrons
